@@ -9,7 +9,8 @@ import ctypes
 import keyboard
 import pyperclip
 import webbrowser
-
+import ctypes
+user32 = ctypes.windll.user32
 SW_RESTORE = 9
 
 class WorkerThread(QThread):
@@ -20,10 +21,11 @@ class WorkerThread(QThread):
         self.focus_on_app(app_title_to_focus)
 
         try:
-            keyboard.press_and_release('/')
+            user32.keybd_event(0xBF, 0, 0, 0); user32.keybd_event(0xBF, 0, 2, 0)
             time.sleep(0.04)
             pyperclip.copy(self.message.strip())
-            keyboard.press_and_release('ctrl+v')
+            user32.keybd_event(0x11, 0, 0, 0); user32.keybd_event(0x56, 0, 0, 0); user32.keybd_event(0x56, 0, 2, 0); user32.keybd_event(0x11, 0, 2, 0)
+
             time.sleep(0.05)
             keyboard.press_and_release('Enter')
 
