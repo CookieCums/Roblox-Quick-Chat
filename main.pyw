@@ -136,7 +136,7 @@ class RoundedWindow(QFrame):
         self.setWindowTitle("Roblox Quick Chat")
         self.setGeometry(100, 100, 400, 300)
         self.setFixedSize(300, 200)
-        self.set_background_image("Background_Image.webp")
+        self.set_background_image("resources/Background_Image.webp")
         self.setWindowFlags(Qt.WindowStaysOnTopHint)
 
         layout = QVBoxLayout(self)
@@ -168,7 +168,7 @@ class RoundedWindow(QFrame):
         self.load_messages(file_path)
 
     def load_default_messages(self):
-        self.load_messages('messages.txt')
+        self.load_messages('resources/messages.txt')
 
     def load_messages(self, file_path):
         with open(file_path, 'r') as file:
@@ -180,7 +180,8 @@ class RoundedWindow(QFrame):
             button.clicked.connect(lambda _, m=message: self.on_message_click(m))
             self.content_layout.addWidget(button, i // 3, i % 3)
 
-        self.content_layout.addItem(QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Expanding), len(messages) // 3, 0, 1, 3)
+        # Add a spacer item to ensure proper layout
+        self.content_layout.addItem(QSpacerItem(0, 0, QSizePolicy.Expanding, QSizePolicy.Expanding), (len(messages) + 2) // 3, 0, 1, 3)
 
     def clear_layout(self, layout):
         for i in reversed(range(layout.count())):
